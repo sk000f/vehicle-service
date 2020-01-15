@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
 import me.skaife.obs.vehicleservice.model.Vehicle;
 import me.skaife.obs.vehicleservice.model.VehicleRequest;
 import me.skaife.obs.vehicleservice.model.VehicleResponse;
@@ -16,18 +17,19 @@ import static net.logstash.logback.argument.StructuredArguments.kv;
 
 
 @RestController
+@Slf4j
 public class VehicleController {
 
-  private static final Logger logger = LoggerFactory.getLogger(VehicleController.class);
+  // private static final Logger log = LoggerFactory.getLogger(VehicleController.class);
 
   @GetMapping(path="/vehicles")
   public Vehicle getVehicles() {
 
       MDC.put("userId", "MSKAIFE");
-      logger.info("GET Vehicles endpoint called");
+      log.info("GET Vehicles endpoint called");
 
       MDC.put("errorMessage", "Something has gone terribly wrong");
-      logger.error("Error in GET Vehicles endpoint");
+      log.error("Error in GET Vehicles endpoint");
 
       Vehicle vehicle = new Vehicle();
       vehicle.setId(1L);
@@ -40,9 +42,9 @@ public class VehicleController {
   @PostMapping(path="/vehicles")
   public VehicleResponse addVehicle(@RequestBody VehicleRequest inputPayload) {
 
-    logger.info("GET Vehicles endpoint called", kv("username", "TFERGUS2"));
+    log.info("GET Vehicles endpoint called", kv("username", "TFERGUS2"));
 
-    logger.error("Error in GET Vehicles endpoint", kv("errorMessage", "Something has gone even more badly wrong"));
+    log.error("Error in GET Vehicles endpoint", kv("errorMessage", "Something has gone even more badly wrong"));
 
     VehicleResponse response = new VehicleResponse();
     response.setId(inputPayload.getId());
@@ -50,7 +52,7 @@ public class VehicleController {
     response.setModel(inputPayload.getModel());
     response.setVariant(inputPayload.getVariant());
 
-    logger.info("Vehicle created and returned", kv("vehicleResponse", response));
+    log.info("Vehicle created and returned", kv("vehicleResponse", response));
 
     return response;
   }
