@@ -49,6 +49,9 @@ public class VehicleController {
     response.setManufacturer(inputPayload.getManufacturer());
     response.setModel(inputPayload.getModel());
     response.setVariant(inputPayload.getVariant());
+
+    logger.info("Vehicle created and returned", kv("vehicleResponse", response));
+
     return response;
   }
   
